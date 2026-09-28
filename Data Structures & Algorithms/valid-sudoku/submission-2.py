@@ -1,0 +1,28 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        
+        # how to check validity - compare to the pure 
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxs = defaultdict(set)
+
+        for r in range(9):
+            for c in range(9):
+                # handle empty items 
+                if board[r][c] == ".":
+                    continue 
+                
+                # handle not valid 
+                if (board[r][c] in rows[r] or board[r][c] in cols[c] or board[r][c] in boxs[(r // 3, c // 3)]):
+                    return False 
+                
+                # handle new value - update reference  
+                else: 
+                    rows[r].add(board[r][c])
+                    cols[c].add(board[r][c])
+                    boxs[(r // 3, c // 3)].add(board[r][c])
+        
+        return True 
+
+        
+        
